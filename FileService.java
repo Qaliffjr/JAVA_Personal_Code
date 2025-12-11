@@ -45,10 +45,17 @@ Here you need to know is
 
 public class FileService {
     String separator = "\\|";
-    final private String[] user = {"uid","username", "password", "role"};
-    final private String[] student = {"studentID", "firstName", "lastName", "major", "year", "email","needRecovery","assigned"};
+    final private String[] user = {"user_id","email", "password", "role"};
+    final private String[] admin = {"admin_id", "user_id", "name"};
+    final private String[] officer = {"officer_id", "user_id", "name"};
+    final private String[] lecturer = {"lecturer_id", "user_id", "name"};
+    final private String[] student = {"student_id", "user_id", "first_name", "last_name", " major", "year"};
+    final private String[] course = {"course_id", "lecturer_id", "course_name", "credit", "semester", "exam_weight", "assignment_weight"};
+    final private String[] student_grade = {"grade_id", "student_id", "course_id", "exam_score", "assignment_score", "final_score"};
+    final private String[] recovery_enrollment = {"enrollment_id", "student_id", "course_id", "type", "status"};
+    final private String[] recovery_phase = {"phase_id", "enrollment_id", "phase", "task"};
     //TODO need to add all the headers for the file
-    
+   
     public List<String> dbHeaderSearch(String filename) { 
         if (filename.endsWith(".txt")) {
             filename = filename.substring(0, filename.length() - 4);
@@ -58,8 +65,29 @@ public class FileService {
             case "user":
                 return Arrays.asList(user);
                 
+            case "admin":
+                return Arrays.asList(admin);
+                
+            case "officer":
+                return Arrays.asList(officer);
+                
+            case "lecturer":
+                return Arrays.asList(lecturer);
+                
             case "student":
                 return Arrays.asList(student);
+                
+            case "course":
+                return Arrays.asList(course);
+                
+            case "student_grade":
+                return Arrays.asList(student_grade);
+                
+            case "recovery_enrollment":
+                return Arrays.asList(recovery_enrollment);
+                
+            case "recovery_phase":
+                return Arrays.asList(recovery_phase);
                 
             default:
                 return new ArrayList<>();
@@ -327,6 +355,4 @@ public class FileService {
         FileData data = new FileData();
         data.fileOverrrideWrite(filename, content);
     }
-    
-    //TODO add string match
 }
